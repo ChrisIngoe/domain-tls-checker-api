@@ -1,7 +1,7 @@
 {
     "mongo": {
-        "url": "mongodb+srv://dbUser:m@zLZjV58WQk@cluster0.jzaqk.mongodb.net/sample_restaurants?retryWrites=true&w=majority",
-        "db": "sample_restaurants",
-        "collection": "restaurants"
+        "url": "",
+        "db": "",
+        "collection": ""
     }
 }
