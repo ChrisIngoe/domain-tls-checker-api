@@ -5,7 +5,7 @@ const axios = require('axios'),
 
 exports.checkTls = function (req, res) {
   const domain = req.params.domain;
-  checkDomain2(domain, function(err, data){
+  checkDomain(domain, function(err, data){
     if (err){
       return res.status(500).send('Internal server error');
     } else {
@@ -14,23 +14,7 @@ exports.checkTls = function (req, res) {
   });
 };
 
-function checkDomain(domain, callback) {
-  axios.get("https://www.google.com/")
-  .then(res => {
-    console.log(res.socket.getProtocol());
-    return res.JSON();
-  })
-  .then(json => {
-    console.log(json);
-    return callback(null, json);
-  })
-  .catch(err => {
-    console.log(err);
-    return callback(err);
-  })
-};
-
-function checkDomain2(domain, callback){
+function checkDomain(domain, callback){
   request.get(`https://${domain}`, function(err, res, body){
     if (err){
       console.log(err);
