@@ -8,12 +8,10 @@ const helmet = require('helmet'),
   notFound = require('./routes/notFound'),
   domain = require('./routes/domain'),
   cors = require('cors');
-  //validate = require('./middleware/validate'),
+//validate = require('./middleware/validate'),
 
 const app = express();
-const port = process.env.PORT || 3001
-;
-
+const port = process.env.PORT || 3001;
 app.set('port', port);
 app.use(bodyParser.json({ limit: '10kb' }));
 app.use(bodyParser.urlencoded({ limit: '10kb', extended: false }));
@@ -28,7 +26,7 @@ app.use(notFound.index);
 
 const server = http.createServer(app);
 server.listen(app.get('port'), function () {
-  console.info(`Express server listening on port ${port}`);
+  //console.info(`Express server listening on port ${port}`);
 });
 
 const closeServer = function () {
