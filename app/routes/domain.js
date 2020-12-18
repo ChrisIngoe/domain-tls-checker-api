@@ -1,30 +1,28 @@
 'use strict';
 
-const axios = require('axios'),
-  request = require('request');
+const fileCheck = require('../services/domainCheckFile'),
+  requestCheck = require('../services/domainCheckRequest');
 
 exports.checkTls = function (req, res) {
-  const domain = req.params.domain;
-  checkDomain(domain, function(err, data){
+  const checkDomain = {domain: req.params.domain, result: ''};
+  checkDomainTls(checkDomain, function(err, data){
     if (err){
+      console.log(err);
       return res.status(500).send('Internal server error');
     } else {
-      return res.status(200).json( data );
-    }   
+      return res.status(200).json( data.result || 'Not Tls' );
+    } 
   });
 };
 
-function checkDomain(domain, callback){
-  request.get(`https://${domain}`, function(err, res, body){
-    if (err){
-      console.log(err);
-      return callback(err);
-    } else if (!res || !res.socket){
-      console.log('unknown response');
-      return callback('Unknown response');
-    } else {
-      console.log(res.socket.getProtocol());
-      return callback(null, res.socket.getProtocol());
-      }
-  });
+function checkDomainTls(checkDomain, callback){
+  fileCheck.checkTlsByList(checkDomain)
+    .then(requestCheck.checkTlsByRequest)
+    .then(checkDomain => {
+      console.log(checkDomain);
+      return callback(null, checkDomain);
+    })
+    .catch(err => {
+      return callback(err)
+    })
 }

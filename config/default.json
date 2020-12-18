@@ -1,7 +1,7 @@
 {
-    "mongo": {
-        "url": "",
-        "db": "",
-        "collection": ""
-    }
+    "domains": [
+        "gmail.com",
+        "gmail.co.uk",
+        "apple.com"
+    ]
 }
